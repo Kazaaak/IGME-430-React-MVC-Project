@@ -2,88 +2,88 @@ const helper = require('./helper.js');
 const React = require('react');
 const ReactDOM = require('react-dom');
 
-const handleDomo = (e) => {
+const handleTwiddle = (e) => {
     e.preventDefault();
     helper.hideError();
 
-    const name = e.target.querySelector('#domoName').value;
-    const age = e.target.querySelector('#domoAge').value;
+    const text = e.target.querySelector('#twiddleText').value;
+    const image = e.target.querySelector('#twiddleImage').value;
 
-    if (!name || !age) {
+    if (!text || !image) {
         helper.handleError('All fields are required!');
         return false;
     }
 
-    helper.sendPost(e.target.action, {name, age}, loadDomosFromServer);
+    helper.sendPost(e.target.action, {text, image}, loadTwiddlesFromServer);
 
     return false;
 }
 
-const DomoForm = (props) => {
+const TwiddleForm = (props) => {
     return (
-        <form id="domoForm"
-            onSubmit={handleDomo}
-            name="domoForm"
+        <form id="twiddleForm"
+            onSubmit={handleTwiddle}
+            name="twiddleForm"
             action="/maker"
             method="POST"
-            className="domoForm"
+            className="twiddleForm"
         >
-            <label htmlFor="name">Name: </label>
-            <input id="domoName" type="text" name="name" placeholder="Domo Name" />
-            <label htmlFor="age">Age: </label>
-            <input id="domoAge" type="number" min="0" name="name" />
-            <input className="makeDomoSubmit" type="submit" value="Make Domo" />
+            <label htmlFor="text">Text: </label>
+            <input id="twiddleText" type="text" name="text" placeholder="Type your message here" />
+            <label htmlFor="image">Image: </label>
+            <input id="twiddleImage" type="number" min="0" name="image" />
+            <input className="makeTwiddleSubmit" type="submit" value="Make Twiddle" />
         </form>
     );
 }
 
-const DomoList = (props) => {
-    if (props.domos.length === 0) {
+const TwiddleList = (props) => {
+    if (props.twiddles.length === 0) {
         return (
-            <div className="domoList">
-                <h3 className="emptyDomo">No Domos Yet!</h3>
+            <div className="twiddleList">
+                <h3 className="emptyTwiddle">No Twiddles Yet!</h3>
             </div>
         );
     }
 
-    const domoNodes = props.domos.map(domo => {
+    const twiddleNodes = props.twiddles.map(twiddle => {
         return (
-            <div key={domo._id} className="domo">
-                <img src="/assets/img/domoface.jpeg" alt="domo face" className="domoFace" />
-                <h3 className="domoName"> Name: {domo.name} </h3>
-                <h3 className="domoAge"> Name: {domo.age} </h3>
+            <div key={twiddle._id} className="twiddle">
+                <img src="/assets/img/twiddlerface.jpeg" alt="" className="twiddlerFace" />
+                <h3 className="twiddleText"> Twiddle: {twiddle.text} </h3>
+                <h3 className="twiddleImage"> Image (placeholder): {twiddle.image} </h3>
             </div>
         );
     });
 
     return (
-        <div className="domoList">
-            {domoNodes}
+        <div className="twiddleList">
+            {twiddleNodes}
         </div>
     )
 }
 
-const loadDomosFromServer = async () => {
-    const response = await fetch('/getDomos');
+const loadTwiddlesFromServer = async () => {
+    const response = await fetch('/getTwiddles');
     const data = await response.json();
     ReactDOM.render(
-        <DomoList domos={data.domos} />,
-        document.getElementById('domos')
+        <TwiddleList twiddles={data.twiddles} />,
+        document.getElementById('twiddles')
     );
 }
 
 const init = () => {
     ReactDOM.render(
-        <DomoForm />,
-        document.getElementById('makeDomo')
+        <TwiddleForm />,
+        document.getElementById('makeTwiddle')
     );
 
     ReactDOM.render(
-        <DomoList domos={[]} />,
-        document.getElementById('domos')
+        <TwiddleList twiddles={[]} />,
+        document.getElementById('twiddles')
     );
 
-    loadDomosFromServer();
+    loadTwiddlesFromServer();
 }
 
 window.onload = init;

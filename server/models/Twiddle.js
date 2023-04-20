@@ -1,16 +1,16 @@
 const mongoose = require('mongoose');
 const _ = require('underscore');
 
-const setName = (name) => _.escape(name).trim();
+const setText = (text) => _.escape(text).trim();
 
-const DomoSchema = new mongoose.Schema({
-  name: {
+const TwiddleSchema = new mongoose.Schema({
+  text: {
     type: String,
     required: true,
     trim: true,
-    set: setName,
+    set: setText,
   },
-  age: {
+  image: {
     type: Number,
     min: 0,
     required: true,
@@ -26,10 +26,10 @@ const DomoSchema = new mongoose.Schema({
   },
 });
 
-DomoSchema.statics.toAPI = (doc) => ({
-  name: doc.name,
-  age: doc.age,
+TwiddleSchema.statics.toAPI = (doc) => ({
+  text: doc.text,
+  image: doc.image,
 });
 
-const DomoModel = mongoose.model('Domo', DomoSchema);
-module.exports = DomoModel;
+const TwiddleModel = mongoose.model('Twiddle', TwiddleSchema);
+module.exports = TwiddleModel;
