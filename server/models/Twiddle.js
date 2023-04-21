@@ -26,8 +26,8 @@ const TwiddleSchema = new mongoose.Schema({
     ref: 'Account',
   },
   createdDate: {
-    type: Date,
-    default: Date.now,
+    type: Date.UTC,
+    default: Date,
   },
 });
 

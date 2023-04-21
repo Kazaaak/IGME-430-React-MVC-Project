@@ -50,9 +50,10 @@ const TwiddleList = (props) => {
         return (
             <div key={twiddle._id} className="twiddle">
                 <img src="/assets/img/twiddlerface.jpeg" alt="" className="twiddlerFace" />
-                <h2 className="twiddleUsername"> Username {twiddle.username} </h2>
+                <h2 className="twiddleUsername"> &#64;{twiddle.username} </h2>
                 <h3 className="twiddleText"> {twiddle.text} </h3>
                 <h3 className="twiddleImage"> Image (placeholder): {twiddle.image} </h3>
+                <h4 className="twiddleDate"> Sent {twiddle.createdDate.toLocaleString(/*'en-US', { timeZone: 'UTC' }*/)}</h4>
             </div>
         );
     });
