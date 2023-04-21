@@ -50,7 +50,7 @@ nav:nth-child(1) {
 .twiddleForm {
     border: 2px solid #338acc;
     height: 35px;
-    width: 700px;
+    width: 900px;
     margin-top:0px;
     padding-top:10px;
     background-color: #55acee;
@@ -60,7 +60,6 @@ nav:nth-child(1) {
 
 .twiddleForm label {
     display: inline-block;
-    width: 75px;
     margin-left: 10px;
     font-size: 1.2em;
     float: left;
@@ -181,7 +180,7 @@ nav:nth-child(1) {
     font-style: italic;
 }
 
-#twiddle {
+#twiddler {
     z-index: 225;
     margin-top: -20px;
     margin-left: 135px;

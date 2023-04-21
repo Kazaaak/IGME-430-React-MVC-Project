@@ -28,9 +28,9 @@ const TwiddleForm = (props) => {
             method="POST"
             className="twiddleForm"
         >
-            <label htmlFor="text">Text: </label>
+            <label htmlFor="text">Message Contents: </label>
             <input id="twiddleText" type="text" name="text" placeholder="Type your message here" />
-            <label htmlFor="image">Image: </label>
+            <label htmlFor="image">     Attach image?: </label>
             <input id="twiddleImage" type="number" min="0" name="image" />
             <input className="makeTwiddleSubmit" type="submit" value="Make Twiddle" />
         </form>
@@ -50,7 +50,8 @@ const TwiddleList = (props) => {
         return (
             <div key={twiddle._id} className="twiddle">
                 <img src="/assets/img/twiddlerface.jpeg" alt="" className="twiddlerFace" />
-                <h3 className="twiddleText"> Twiddle: {twiddle.text} </h3>
+                <h2 className="twiddleUsername"> Username {twiddle.username} </h2>
+                <h3 className="twiddleText"> {twiddle.text} </h3>
                 <h3 className="twiddleImage"> Image (placeholder): {twiddle.image} </h3>
             </div>
         );

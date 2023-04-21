@@ -10,6 +10,7 @@ const makeTwiddle = async (req, res) => {
   }
 
   const twiddleData = {
+    username: req.session.account.username,
     text: req.body.text,
     image: req.body.image,
     owner: req.session.account._id,
@@ -30,7 +31,7 @@ const makeTwiddle = async (req, res) => {
 
 const getTwiddles = async (req, res) => {
   try {
-    const query = { owner: req.session.account._id };
+    const query = { /* owner: req.session.account._id */ };
     const docs = await Twiddle.find(query).select('text image').lean().exec();
 
     return res.json({ twiddles: docs });
