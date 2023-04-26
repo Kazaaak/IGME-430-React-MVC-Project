@@ -8,6 +8,7 @@ const mongoose = require('mongoose');
 const expressHandlebars = require('express-handlebars');
 const helmet = require('helmet');
 const session = require('express-session');
+const fileUpload = require('express-fileupload');
 const RedisStore = require('connect-redis').default;
 const redis = require('redis');
 
@@ -35,6 +36,7 @@ redisClient.connect().then(() => {
   app.use('/assets', express.static(path.resolve(`${__dirname}/../hosted/`)));
   app.use(favicon(`${__dirname}/../hosted/img/favicon.png`));
   app.use(compression());
+  app.use(fileUpload());
   app.use(bodyParser.urlencoded({ extended: true }));
   app.use(bodyParser.json());
 
