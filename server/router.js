@@ -14,6 +14,10 @@ const router = (app) => {
   app.get('/maker', mid.requiresLogin, controllers.Twiddle.makerPage);
   app.post('/maker', mid.requiresLogin, controllers.Twiddle.makeTwiddle);
 
+  app.post('/upload', mid.requiresLogin, controllers.File.uploadFile);
+  app.get('/retrieve', mid.requiresLogin, controllers.File.retrieveFile);
+  app.get('/uploadPage', controllers.File.uploadPage);
+
   app.get('/', mid.requiresSecure, mid.requiresLogout, controllers.Account.loginPage);
 };
 

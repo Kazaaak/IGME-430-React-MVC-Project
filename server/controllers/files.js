@@ -1,4 +1,6 @@
-const File = require('../models/filestore.js');
+const models = require('../models');
+
+const { File } = models;
 
 // A simple handler for rendering the upload page
 const uploadPage = (req, res) => {

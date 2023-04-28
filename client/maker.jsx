@@ -32,30 +32,30 @@ const TwiddleForm = (props) => {
             <label htmlFor="text">Message Contents: </label>
             <input id="twiddleText" type="text" name="text" placeholder="Type your message here" />
             <label htmlFor="image">     Attach image?: </label>
-            {/* <input id="twiddleImage" type="number" min="0" name="image" /> */}
+            <input id="twiddleImage" type="number" min="0" name="image" />
             {/* Form for uploading images to display in the Twiddle (only if pro)*/}
-            <form ref='uploadForm'
+            <form 
                 id='uploadForm'
                 action='/upload'
                 method='post'
                 encType="multipart/form-data">
                 <input type="file" name="sampleFile" />
-                <input type='submit' value='Upload!' />
+                {/* <input type='submit' value='Upload!' /> */}
             </form>
-            {/* 
-            Retrieve form ONLY IF NECESSARY:
-            <form ref='retrieveForm' 
+            
+            {/* Retrieve form ONLY IF NECESSARY: */}
+            {/* <form  
                 id='retrieveForm' 
                 action='/retrieve' 
                 method='get'>
                 <label for='fileName'>Retrieve File By ID: </label>
                 <input name='_id' type='text' />
                 <input type='submit' value='Retrieve!' />
-            </form>
+            </form> */}
 
-            For when I get image display/getting working"
-            <img src="/retrieve?_id=1234" style="max-width: 1000px" />
-            */}
+            {/* For when I get image display/getting working */}
+            {/* <img src="/retrieve?_id=1234" style="max-width: 1000px" /> */}
+            
             <input className="makeTwiddleSubmit" type="submit" value="Make Twiddle" />
         </form>
     );

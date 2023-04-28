@@ -20,6 +20,10 @@ const TwiddleSchema = new mongoose.Schema({
     required: true,
     ref: 'Account',
   },
+  imageID: {
+    type: String,
+    required: false,
+  },
   owner: {
     type: mongoose.Schema.ObjectId,
     required: true,
