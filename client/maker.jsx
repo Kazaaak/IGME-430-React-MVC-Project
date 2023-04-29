@@ -8,9 +8,9 @@ const handleTwiddle = (e) => {
     helper.hideError();
 
     const text = e.target.querySelector('#twiddleText').value;
-    const image = e.target.querySelector('#twiddleImage').value;
+    const image = e.target.querySelector('.twiddleImage').value;
 
-    if (!text || !image) {
+    if (!text && !image) {
         helper.handleError('All fields are required!');
         return false;
     }
@@ -32,10 +32,11 @@ const TwiddleForm = (props) => {
             <label htmlFor="text">Message Contents: </label>
             <input id="twiddleText" type="text" name="text" placeholder="Type your message here" />
             <label htmlFor="image">     Attach image?: </label>
-            <input id="twiddleImage" type="number" min="0" name="image" />
+            {/* <input id="twiddleImage" type="number" min="0" name="image" /> */}
             {/* Form for uploading images to display in the Twiddle (only if pro)*/}
             <form 
                 id='uploadForm'
+                class='twiddleImage'
                 action='/upload'
                 method='post'
                 encType="multipart/form-data">
@@ -76,7 +77,7 @@ const TwiddleList = (props) => {
                 <img src="/assets/img/twiddlerface.jpeg" alt="" className="twiddlerFace" />
                 <h2 className="twiddleUsername"> &#64;{twiddle.username} </h2>
                 <h3 className="twiddleText"> {twiddle.text} </h3>
-                <h3 className="twiddleImage"> Image (placeholder): {twiddle.image} </h3>
+                <img className="twiddleImage" src="/retrieve?_id=1234" alt=""> {twiddle.imageID} </img>
                 <h4 className="twiddleDate"> Sent {twiddle.createdDate}</h4>
             </div>
         );

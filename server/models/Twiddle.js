@@ -15,14 +15,14 @@ const TwiddleSchema = new mongoose.Schema({
     min: 0,
     required: true,
   },
+  imageID: {
+    type: String,
+    required: false,
+  },
   username: {
     type: String,
     required: true,
     ref: 'Account',
-  },
-  imageID: {
-    type: String,
-    required: false,
   },
   owner: {
     type: mongoose.Schema.ObjectId,
