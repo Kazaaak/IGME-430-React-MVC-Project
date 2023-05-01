@@ -13,7 +13,7 @@ const TwiddleSchema = new mongoose.Schema({
   image: {
     type: Number,
     min: 0,
-    required: true,
+    required: false,
   },
   imageID: {
     type: String,

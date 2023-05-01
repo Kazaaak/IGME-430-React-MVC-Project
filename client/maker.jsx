@@ -77,7 +77,7 @@ const TwiddleList = (props) => {
                 <img src="/assets/img/twiddlerface.jpeg" alt="" className="twiddlerFace" />
                 <h2 className="twiddleUsername"> &#64;{twiddle.username} </h2>
                 <h3 className="twiddleText"> {twiddle.text} </h3>
-                <img className="twiddleImage" src="/retrieve?_id=1234" alt=""> {twiddle.imageID} </img>
+                {/* <img className="twiddleImage" src="/retrieve?_id=1234" alt=""> {twiddle.imageID} </img> */}
                 <h4 className="twiddleDate"> Sent {twiddle.createdDate}</h4>
             </div>
         );
