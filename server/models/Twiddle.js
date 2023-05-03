@@ -10,12 +10,19 @@ const TwiddleSchema = new mongoose.Schema({
     trim: true,
     set: setText,
   },
-  image: {
-    type: Number,
-    min: 0,
+  imageName: {
+    type: String,
     required: false,
   },
-  imageID: {
+  imageData: {
+    type: Buffer,
+    required: false,
+  },
+  imageSize: {
+    type: Number,
+    required: false,
+  },
+  imageMimetype: {
     type: String,
     required: false,
   },
@@ -37,7 +44,7 @@ const TwiddleSchema = new mongoose.Schema({
 
 TwiddleSchema.statics.toAPI = (doc) => ({
   text: doc.text,
-  image: doc.image,
+  imageName: doc.imageName,
 });
 
 const TwiddleModel = mongoose.model('Twiddle', TwiddleSchema);

@@ -11,8 +11,8 @@ const router = (app) => {
 
   app.get('/logout', mid.requiresLogin, controllers.Account.logout);
 
-  app.get('/maker', mid.requiresLogin, controllers.Twiddle.makerPage);
-  app.post('/maker', mid.requiresLogin, controllers.Twiddle.makeTwiddle);
+  app.get('/home', mid.requiresLogin, controllers.Twiddle.homePage);
+  app.post('/home', mid.requiresLogin, controllers.Twiddle.makeTwiddle);
 
   app.post('/upload', mid.requiresLogin, controllers.File.uploadFile);
   app.get('/retrieve', mid.requiresLogin, controllers.File.retrieveFile);

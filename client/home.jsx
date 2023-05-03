@@ -3,6 +3,7 @@ const React = require('react');
 const ReactDOM = require('react-dom');
 
 //////////// Twiddle Functions ////////////////
+// Handle sending user-inputted Twiddle data to database
 const handleTwiddle = (e) => {
     e.preventDefault();
     helper.hideError();
@@ -20,31 +21,35 @@ const handleTwiddle = (e) => {
     return false;
 }
 
+// Allow the user to upload Twiddles
 const TwiddleForm = (props) => {
     return (
         <form id="twiddleForm"
             onSubmit={handleTwiddle}
             name="twiddleForm"
-            action="/maker"
+            action="/home"
             method="POST"
             className="twiddleForm"
         >
             <label htmlFor="text">Message Contents: </label>
             <input id="twiddleText" type="text" name="text" placeholder="Type your message here" />
-            <label htmlFor="image">     Attach image?: </label>
-            {/* <input id="twiddleImage" type="number" min="0" name="image" /> */}
-            {/* Form for uploading images to display in the Twiddle (only if pro)*/}
-            <form 
+            <br />
+            <br />
+
+            {/* Form for uploading images to display in the Twiddle (only if pro user)*/}
+            <label htmlFor="uploadForm"> Attach image?: </label>
+            <form
                 id='uploadForm'
+                name="uploadForm"
                 class='twiddleImage'
                 action='/upload'
                 method='post'
                 encType="multipart/form-data">
-                <input type="file" name="sampleFile" />
-                {/* <input type='submit' value='Upload!' /> */}
+                <input id="browseButton" type="file" name="sampleFile" disabled />
+                <input id="uploadButton" type='submit' value='Upload Image' disabled />
             </form>
-            
-            {/* Retrieve form ONLY IF NECESSARY: */}
+
+            {/* Retrieve form for testing: */}
             {/* <form  
                 id='retrieveForm' 
                 action='/retrieve' 
@@ -54,14 +59,19 @@ const TwiddleForm = (props) => {
                 <input type='submit' value='Retrieve!' />
             </form> */}
 
-            {/* For when I get image display/getting working */}
-            {/* <img src="/retrieve?_id=1234" style="max-width: 1000px" /> */}
-            
             <input className="makeTwiddleSubmit" type="submit" value="Make Twiddle" />
+            <span class="proSpan">
+                <label htmlFor="proCheckbox"> Enable image upload for pro users: </label>
+                {/* Referenced for formatting/naming: */}
+                {/* https://www.w3schools.com/tags/att_input_type_checkbox.asp */}
+                <input id="proCheckbox" type="checkbox" name="proCheckbox" />
+            </span>
+
         </form>
     );
 }
 
+// Format and display the list of Twiddles
 const TwiddleList = (props) => {
     if (props.twiddles.length === 0) {
         return (
@@ -90,11 +100,13 @@ const TwiddleList = (props) => {
     )
 }
 
+// Retrieve Twiddles from the database
 const loadTwiddlesFromServer = async () => {
     const response = await fetch('/getTwiddles');
     const data = await response.json();
     ReactDOM.render(
-        <TwiddleList twiddles={data.twiddles} />,
+        // Display in reverse chronological order (newest first)
+        <TwiddleList twiddles={(data.twiddles).reverse()} />,
         document.getElementById('twiddles')
     );
 }
@@ -114,6 +126,21 @@ const uploadFile = async (e) => {
     return false;
 };
 
+// Toggle Pro Mode for the user, allowing image uploading
+const togglePro = () => {
+    const proEnabled = document.getElementById('proCheckbox').checked;
+    const browseButton = document.getElementById('browseButton');
+    const uploadButton = document.getElementById('uploadButton');
+
+    if (proEnabled) {
+        browseButton.disabled = false;
+        uploadButton.disabled = false;
+    } else {
+        browseButton.disabled = true;
+        uploadButton.disabled = true;
+    }
+}
+
 const init = () => {
     ReactDOM.render(
         <TwiddleForm />,
@@ -129,6 +156,10 @@ const init = () => {
 
     const uploadForm = document.getElementById('uploadForm');
     uploadForm.addEventListener('submit', uploadFile);
+
+    const proButton = document.getElementById('proCheckbox');
+    proButton.addEventListener('click', togglePro);
+
 }
 
 window.onload = init;

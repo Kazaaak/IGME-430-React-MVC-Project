@@ -2,18 +2,20 @@ const models = require('../models');
 
 const { Twiddle } = models;
 
-const makerPage = async (req, res) => res.render('app');
+const homePage = async (req, res) => res.render('app');
 
 const makeTwiddle = async (req, res) => {
-  if (!req.body.text && !req.body.imageID) {
+  if (!req.body.text && !req.body.imageName) {
     return res.status(400).json({ error: 'Message or image required!' });
   }
 
   const twiddleData = {
     username: req.session.account.username,
     text: req.body.text,
-    image: req.body.image,
-    imageID: req.body.imageID,
+    imageName: req.body.imageName,
+    imageData: req.body.imageData,
+    imageSize: req.body.imageSize,
+    imageMimetype: req.body.imageMimetype,
     owner: req.session.account._id,
     createdDate: req.body.createdDate,
   };
@@ -21,7 +23,7 @@ const makeTwiddle = async (req, res) => {
   try {
     const newTwiddle = new Twiddle(twiddleData);
     await newTwiddle.save();
-    return res.status(201).json({ text: newTwiddle.text, imageID: newTwiddle.imageID });
+    return res.status(201).json({ text: newTwiddle.text, imageName: newTwiddle.imageName });
   } catch (err) {
     console.log(err);
     if (err.code === 11000) {
@@ -34,7 +36,9 @@ const makeTwiddle = async (req, res) => {
 const getTwiddles = async (req, res) => {
   try {
     const query = { /* owner: req.session.account._id */ };
-    const docs = await Twiddle.find(query).select('text image imageID username createdDate').lean().exec();
+    const docs = await Twiddle.find(query).select(
+      'text imageName imageData imageSize imageMimetype username createdDate',
+    ).lean().exec();
 
     return res.json({ twiddles: docs });
   } catch (err) {
@@ -44,7 +48,7 @@ const getTwiddles = async (req, res) => {
 };
 
 module.exports = {
-  makerPage,
+  homePage,
   makeTwiddle,
   getTwiddles,
 };
